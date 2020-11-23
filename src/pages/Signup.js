@@ -1,46 +1,57 @@
-// add useContext
-import React, { useContext } from 'react';
+import React from 'react';
 import { useGlobalContext } from '../context/context';
-import {withRouter} from 'react-router-dom'
-
-
-
+import {Link, withRouter} from 'react-router-dom'
 
 const Signup = (props) => {
-    // const { handleSignup } = useContext(firebaseAuth)
-    const { handleSignup, inputs, setInputs, errors } = useGlobalContext()
+    const { handleSignup, inputs, setInputs, errors, setErrors } = useGlobalContext()
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        console.log('handleSubmit')
-        // wait to sign up
         await handleSignup()
-        //push home
         props.history.push('/')
+        setErrors('')
     }
     const handleChange = e => {
         const {name, value} = e.target
-        console.log(inputs)
         setInputs(prev => ({...prev, [name]: value}))
-    }
+    }        
     
-    //catching setErrors
-    //  signup: (email, password, setErrors) => {
-        
-        
-        return (
-            <form onSubmit={handleSubmit}>
-        {/* replace the div tags with a form tag */}
-        Signup
-        {/* make inputs  */}
-            <input onChange={handleChange} name="email" placeholder='email' value={inputs.email} />
-            <input onChange={handleChange} name="password" placeholder='password' value={inputs.password} />
-            <button>Sign up</button>
+    return (
+        <section className="w-full h-screen px-10">
 
-            {errors.length > 0 ? errors.map(error => <p style={{color: 'red'}}>{error}</p> ) : null}
-        </form>
+            <form onSubmit={handleSubmit}>
+                <header className="pt-10 text-3xl">
+                    <h1 className="w-full text-black font-bold  text-center">Sign up</h1>
+                </header>
+                <div>
+                    {<p style={{color: 'red'}}>{errors}</p>}
+                </div>
+                <div className="form-control">
+                    <input
+                        type='email'
+                        onChange={handleChange}
+                        name="email"
+                        placeholder='you@example.com'
+                        value={inputs.email}
+                        className="text-black"
+                    />
+                </div>
+                <div className="form-control">
+                    <input
+                        type="password"
+                        onChange={handleChange}
+                        name="password"
+                        placeholder='password'
+                        value={inputs.password}
+                        className="text-black"
+                    />
+                </div>
+                <button className="text-center w-full my-3 bg-blue-600 hover:bg-blue-700 p-1 focus:outline-none">Sign up</button>
+            </form>
+            <div>
+                Have an account already? <Link to="/signin" className="text-indigo-700 underline">Login here</Link>
+            </div>
+        </section>
     );
 };
-
-// export default Signup;
 export default withRouter(Signup);

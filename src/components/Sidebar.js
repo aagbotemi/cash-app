@@ -11,7 +11,6 @@ const Sidebar = () => {
             <div className="sidebar-header">
                 <ul>
                     <li><Link to="/home">Home</Link></li>
-                    <li><Link to="/details">My Details</Link></li>
                     <li><button onClick={handleSignout}>Logout </button></li>
                 </ul>
                 <button className="close-btn" onClick={closeSidebar}>

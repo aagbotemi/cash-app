@@ -14,12 +14,10 @@ const AppContext = React.createContext()
 export const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    
     const [inputs, setInputs] = useState({email: '', password: ''})
     const [errors, setErrors] = useState([])
     const [token, setToken] = useState(null)
-    
+
     useEffect(()=>{
     localStorage.setItem('transactions', JSON.stringify(state.transactions));
     }, [state.transactions]);
@@ -54,7 +52,7 @@ export const AppProvider = ({ children }) => {
         authMethods.signout(setErrors, setToken)
     }
     
-
+    
     return (
         <AppContext.Provider value={{
             transactions: state.transactions,
@@ -69,13 +67,13 @@ export const AppProvider = ({ children }) => {
             inputs,
             setInputs,
             errors,
-            handleSignout
+            setErrors,
+            handleSignout,
         }}>
             {children}
         </AppContext.Provider>
     )
 }
-
 //custom hook
 export const useGlobalContext = () => {
     return useContext(AppContext)

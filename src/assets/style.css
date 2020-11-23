@@ -219,11 +219,14 @@ form .form-control {
   transform: translate(0);
   z-index: 1;
 }
-
-@media screen and (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .container {
     min-width: 100vw;
     min-height: 76.3vh;
+  }
+  /* login and signup page */
+  form header {
+    margin-bottom: 5rem !important;
   }
 }
 .sidebar-header ul li a {
@@ -233,4 +236,8 @@ form .form-control {
 .sidebar-header ul li {
   margin-bottom: 0.5rem;
   list-style-type: none;
+}
+/* login and signup page */
+form header {
+  margin-bottom: 8rem;
 }
